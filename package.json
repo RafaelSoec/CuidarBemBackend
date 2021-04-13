@@ -1,0 +1,27 @@
+{
+  "name": "ls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
+    "express": "^4.17.1",
+    "mercadopago": "^1.5.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js ",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaelSoec/CuidarBemBackend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RafaelSoec/CuidarBemBackend/issues"
+  },
+  "homepage": "https://github.com/RafaelSoec/CuidarBemBackend#readme"
+}
