@@ -204,6 +204,6 @@ function Response(object, res){
 
 
 console.log("Iniciando Servidor.....");
-app.listen("https://backend-cuidar-bem.herokuapp.com/");
+app.listen(process.env.PORT || 3000);
 console.log("Servidor iniciado");
 
