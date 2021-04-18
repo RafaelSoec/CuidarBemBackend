@@ -17,7 +17,7 @@ app.delete('/produto/excluir', async(req, res) =>{
 });
 
 
-app.get('/produto/vincularImagem', async(req, res) =>{
+app.post('/produto/vincularImagem', async(req, res) =>{
   const prod = await db.vincularImagemProduto(req.body);
   return Response(prod, res);
 });
