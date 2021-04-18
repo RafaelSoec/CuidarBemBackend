@@ -16,6 +16,19 @@ app.delete('/produto/excluir', async(req, res) =>{
   return Response(todos, res);
 });
 
+
+app.get('/produto/vincularImagem', async(req, res) =>{
+  const prod = await db.vincularImagemProduto(req.body);
+  return Response(prod, res);
+});
+
+
+app.get('/produto/imagens/todos', async(req, res) =>{
+  const todos = await db.getImagensProduto('Produto');
+
+  return Response(todos, res);
+});
+
 app.get('/produto/todos', async(req, res) =>{
     const todos = await db.getEntidade('Produto');
 

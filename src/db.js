@@ -148,6 +148,33 @@ async function criarProduto(produto){
 
 }
 
+async function vincularImagemProduto(produtoImagem){
+  try{
+    const conn = await connection();
+    const resp = await conn.query(`INSERT INTO ProdutoImagem
+    (id_produto, url_imagem) VALUES( '${produtoImagem.idProduto}', '${produtoImagem.imagem}')`);
+    return produtoImagem;
+  }
+  catch (e) {
+    return new ErrorResponse(e["message"]);
+  }
+
+}
+
+
+async function getImagensProduto(){
+  try{
+    const conn = await connection();
+    const [rows,fields] =  await conn.query(`Select *From ProdutoImagem Order by id_produto`);
+
+    return rows;
+  }
+  catch (e) {
+    return new ErrorResponse(e["message"]);
+  }
+
+}
+
 async function criarUsuario(usuario){
   try{
     const conn = await connection();
@@ -232,4 +259,7 @@ const ErrorResponse = function(msg) {
   this.status = 500;
 };
 
-module.exports = {connection, getEntidade, removeEntidadeById, getEntidadeById, criarFaixa, criarUsuario, criarPacote, criarProduto, criarCategoria, login, atualizarCliente}
+module.exports = {connection, getEntidade, removeEntidadeById, 
+  getEntidadeById, criarFaixa, criarUsuario, criarPacote, 
+  criarProduto, vincularImagemProduto, getImagensProduto, 
+  criarCategoria, login, atualizarCliente}
