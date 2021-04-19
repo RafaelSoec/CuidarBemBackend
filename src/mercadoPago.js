@@ -29,4 +29,9 @@ function comprarProdutos(produtos) {
     });
 }
   
+const ErrorResponse = function(msg) {
+    this.mensagem = msg;
+    this.status = 500;
+  };
+  
 module.exports = {comprarProdutos}

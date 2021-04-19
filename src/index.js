@@ -159,7 +159,7 @@ app.post('/mercado-pago', async(req, res) => {
 
 
 app.post('/enviar-email', async(req, res) => {
-  const resp = email.enviarEmail(req.body);
+  const resp = await email.enviarEmail(req.body);
   return Response(resp, res);
 });
 
