@@ -9,6 +9,8 @@ app.use(express.json());
 app.use(cors());
 
 const db = require("./db");
+const email = require("./email");
+const mercadoPago = require("./mercadoPago");
 
 app.delete('/produto/excluir', async(req, res) =>{
   const id = req.query.id;
@@ -151,61 +153,15 @@ app.post('/usuario/login', async(req, res) =>{
 });
 
 app.post('/mercado-pago', async(req, res) => {
-  // Configura credenciais
-
-  // let preference = {
-  //     items: [
-  //       {
-  //         title: 'Meu produto',
-  //         unit_price: 100,
-  //         quantity: 1,
-  //       }
-  //     ]
-  // };
-
-  // console.log(preference)
-  // console.log(JSON.stringify(preference))
-
-  // mercadopago.configure({
-  //   access_token: 'TEST-7778485648018849-033021-620875813a4ef7e99485798a12728185-410460126'
-  // });
-
-
-  // return await mercadopago.preferences.create(preference);
-  // .then(function(response){
-  // // Este valor substituirá a string "<%= global.id %>" no seu HTML
-  //   global.id = response.body.id;
-  // }).catch(function(error){
-  //   console.log(error);
-  // });
-  const mercadopago = require ('mercadopago');
-
-  // Add Your credentials
-  mercadopago.configure({
-    access_token: 'PROD_ACCESS_TOKEN'
-    //   access_token: 'TEST-7778485648018849-033021-620875813a4ef7e99485798a12728185-410460126'
-  });
-
-  // Create a preference object
-  let preference = {
-    items: [
-      {
-        title: 'My Item',
-        unit_price: 100,
-        quantity: 1,
-      }
-    ]
-  };
-
-  mercadopago.preferences.create(preference)
-  .then(function(response){
-  // This value replaces the String "<%= global.id %>" in your HTML
-    global.id = response.body.id;
-  }).catch(function(error){
-    console.log(error);
-  });
+  const resp = mercadoPago.comprarProdutos(req.body);
+  return Response(resp, res);
 });
 
+
+app.post('/enviar-email', async(req, res) => {
+  const resp = email.enviarEmail(req.body);
+  return Response(resp, res);
+});
 
 function Response(object, res){
   if(object && object["status"] && object["status"] != 200){
