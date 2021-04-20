@@ -7,6 +7,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.options('*', cors())
 
 const db = require("./db");
 const email = require("./email");
@@ -160,6 +161,7 @@ app.post('/mercado-pago', async(req, res) => {
 
 app.post('/enviar-email', async(req, res) => {
   const resp = await email.enviarEmail(req.body);
+  console.log(resp)
   return Response(resp, res);
 });
 
