@@ -4,9 +4,10 @@ async function enviarEmail(email) {
   try{
       // create reusable transporter object using the default SMTP transport
       let transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false, // true for 465, false for other ports
+        // host: "smtp.gmail.com",
+        // port: 587,
+        // secure: false, // true for 465, false for other ports
+        service: 'gmail',
         auth: {
           user: email.usuario, // generated ethereal user
           pass: email.senha, // generated ethereal password
