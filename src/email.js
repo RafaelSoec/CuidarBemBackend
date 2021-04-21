@@ -26,7 +26,7 @@ async function enviarEmail(email) {
     
   }
   catch (e) {
-    return new ErrorResponse("Usuario ou senha inválido.");
+    return e
   }
 }
 
