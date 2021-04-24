@@ -58,6 +58,22 @@ async function atualizarCliente(cliente){
   }
 }
 
+async function atualizarSenha(data){
+  try{
+    const conn = await connection();
+    novaSenha = encriptarSenha(data.novaSenha);
+    await conn.query(`UPDATE Usuario SET senha='${novaSenha}'  WHERE email='${data.usuario.email}' AND senha='${data.usuario.senha}'`);
+    conn.end();
+    data.usuario.senha = novaSenha;
+
+    return data.usuario;
+  }
+  catch (e) {
+    return new ErrorResponse(e["message"]);
+  }
+}
+
+
 async function getEntidadeById(entidade, id){
   try {
     const conn = await connection();
@@ -262,4 +278,4 @@ const ErrorResponse = function(msg) {
 module.exports = {connection, getEntidade, removeEntidadeById, 
   getEntidadeById, criarFaixa, criarUsuario, criarPacote, 
   criarProduto, vincularImagemProduto, getImagensProduto, 
-  criarCategoria, login, atualizarCliente}
+  criarCategoria, login, atualizarCliente, atualizarSenha}

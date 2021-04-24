@@ -135,6 +135,12 @@ app.get('/usuario/todos', async(req, res) =>{
   return Response(todos, res);
 });
 
+app.post('/usuario/atualizarSenha', async(req, res) =>{
+  console.log(req.body)
+  const usuario = await db.atualizarSenha(req.body);
+  return Response(usuario, res);
+});
+
 app.delete('/usuario/excluir', async(req, res) =>{
   const id = req.query.id;
   const todos = await db.removeEntidadeById('Usuario', id);
@@ -161,7 +167,6 @@ app.post('/mercado-pago', async(req, res) => {
 
 app.post('/enviar-email', async(req, res) => {
   const resp = await email.enviarEmail(req.body);
-  console.log(resp)
   return Response(resp, res);
 });
 
