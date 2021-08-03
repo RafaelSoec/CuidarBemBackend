@@ -1,6 +1,8 @@
 const CryptoJS = require("crypto-js");
 const secretKey = "321zsds929hahhasdjadaxASDA27162XMASH1233K219233L";
 
+const email = require("./email");
+
 async function connection(){
   // if(global.connection && global.connection.state !== "disconnected"){
   //   return global.connection;
@@ -178,10 +180,22 @@ async function vincularImagemProduto(produtoImagem){
 }
 
 
-async function getImagensProduto(){
+async function getImagensPorDiretorios(diretorio){
   try{
     const conn = await connection();
-    const [rows,fields] =  await conn.query(`Select *From ProdutoImagem Order by id_produto`);
+    const [rows,fields] =  await conn.query(`Select *From Imagem img  where img.diretorio like '%${diretorio}%'`);
+
+    return rows;
+  }
+  catch (e) {
+    return new ErrorResponse(e["message"]);
+  }
+}
+
+async function getImagensPorId(id){
+  try{
+    const conn = await connection();
+    const [rows,fields] =  await conn.query(`Select *From Imagem img  where img.id  = ${id}`);
 
     return rows;
   }
@@ -227,6 +241,39 @@ async function getUsuarioByEmail(email, conn){
   }
 }
 
+async function recuperarSenhaEEnviarEmail(dados){
+  try {
+    const conn = await connection();
+    const [rows,fields] =  await conn.query(`Select *From Usuario WHERE email = ?`, [dados.destinatarios]);
+  
+    if(rows[0]){
+      const senha = rows[0].id + "" + rows[0].senha;
+      const novaSenha = encriptarSenha(senha);
+      dados.mensagem = 
+      `<div style="margin-left: 10px; margin-right: 10px; margin-top: 20px">
+        <div class="">
+          <p>Olá, criamos essa nova senha para você:
+            <b>${novaSenha}</b>
+          </p>
+        </div>
+      </div>`;
+
+      const resp = await email.enviarEmail(dados);
+      if(resp.status && resp.status == 200){
+        await conn.query(`UPDATE Usuario SET senha='${novaSenha}'  WHERE email='${dados.destinatarios}'`);
+        conn.end();
+      }
+      return resp;
+    }else{
+      return new ErrorResponse("Usuário não localizado.");
+    }
+  }
+  catch (e) {
+    return new ErrorResponse(e["message"]);
+  }
+}
+
+
 async function getEntidade(entidade){
   try {
     const conn = await connection();
@@ -270,12 +317,13 @@ function decriptarSenha(senha) {
   return bytes.toString(CryptoJS.enc.Utf8);
 }
 
+
 const ErrorResponse = function(msg) {
   this.mensagem = msg;
   this.status = 500;
 };
 
 module.exports = {connection, getEntidade, removeEntidadeById, 
-  getEntidadeById, criarFaixa, criarUsuario, criarPacote, 
-  criarProduto, vincularImagemProduto, getImagensProduto, 
+  getEntidadeById, criarFaixa, criarUsuario, criarPacote, recuperarSenhaEEnviarEmail,
+  criarProduto, vincularImagemProduto, getImagensPorDiretorios, getImagensPorId,
   criarCategoria, login, atualizarCliente, atualizarSenha}

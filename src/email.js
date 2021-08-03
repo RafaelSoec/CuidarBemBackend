@@ -16,7 +16,7 @@ async function enviarEmail(email) {
   
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: `"Crescer Bem" <${email.usuario}>`, // sender address
+      from: `"Ajudando seu filho a crescer" <${email.usuario}>`, // sender address
       to: `${email.destinatarios}`, // list of receivers
       subject: `${email.assunto}`, // Subject line
       text: `${email.mensagem}`, // plain text body
@@ -27,7 +27,7 @@ async function enviarEmail(email) {
     
   }
   catch (e) {
-    return new ErrorResponse("Usuario ou senha inválido.");
+    return new ErrorResponse("Usuario não encontrado.");
   }
 }
 

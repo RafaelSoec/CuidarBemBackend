@@ -2,6 +2,7 @@
 const mercadopago = require ('mercadopago');
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
 const app = express();
 
 
@@ -10,8 +11,18 @@ app.use(cors());
 // app.options('*', cors())
 
 const db = require("./db");
-const email = require("./email");
 const mercadoPago = require("./mercadoPago");
+
+
+app.get('/getImagensPorDiretorio', async(req, res) =>{
+  const img = await db.getImagensPorDiretorios(req.query.diretorio);
+  return Response(img, res);
+});
+
+app.get('/getImagensPorId', async(req, res) =>{
+  const img = await db.getImagensPorId(req.query.id);
+  return Response(img, res);
+});
 
 app.delete('/produto/excluir', async(req, res) =>{
   const id = req.query.id;
@@ -23,13 +34,6 @@ app.delete('/produto/excluir', async(req, res) =>{
 app.post('/produto/vincularImagem', async(req, res) =>{
   const prod = await db.vincularImagemProduto(req.body);
   return Response(prod, res);
-});
-
-
-app.get('/produto/imagens/todos', async(req, res) =>{
-  const todos = await db.getImagensProduto('Produto');
-
-  return Response(todos, res);
 });
 
 app.get('/produto/todos', async(req, res) =>{
@@ -136,7 +140,6 @@ app.get('/usuario/todos', async(req, res) =>{
 });
 
 app.post('/usuario/atualizarSenha', async(req, res) =>{
-  console.log(req.body)
   const usuario = await db.atualizarSenha(req.body);
   return Response(usuario, res);
 });
@@ -166,7 +169,7 @@ app.post('/mercado-pago', async(req, res) => {
 
 
 app.post('/enviar-email', async(req, res) => {
-  const resp = await email.enviarEmail(req.body);
+  const resp = await db.recuperarSenhaEEnviarEmail(req.body);
   return Response(resp, res);
 });
 
