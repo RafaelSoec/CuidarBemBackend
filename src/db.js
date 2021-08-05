@@ -192,7 +192,7 @@ async function vincularImagemProduto(produtoImagem){
 }
 
 
-async function getImagensPorDiretorios(diretorio){
+async function getImagensPorDiretorio(diretorio){
   try{
     const conn = await connection();
     const [rows,fields] =  await conn.query(`Select *From Imagem img  where img.diretorio like '%${diretorio}%'`);
@@ -362,5 +362,5 @@ const ErrorResponse = function(msg) {
 
 module.exports = {connection, getEntidade, removeEntidadeById, 
   getEntidadeById, criarFaixa, criarUsuario, criarPedido, criarPacote, recuperarSenhaEEnviarEmail,
-  criarProduto, vincularImagemProduto, getImagensPorDiretorios, getImagensPorId,
+  criarProduto, vincularImagemProduto, getImagensPorDiretorio, getImagensPorId,
   criarCategoria, login, atualizarCliente, atualizarPedido, atualizarSenha, enviarEmail}

@@ -39,7 +39,7 @@ app.put('/pedido/atualizar', async(req, res) =>{
 });
 
 app.get('/getImagensPorDiretorio', async(req, res) =>{
-  const img = await db.getImagensPorDiretorios(req.query.diretorio);
+  const img = await db.getImagensPorDiretorio(req.query.diretorio);
   return Response(img, res);
 });
 
