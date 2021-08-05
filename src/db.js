@@ -45,6 +45,18 @@ async function login(usuario){
   }
 }
 
+async function atualizarPedido(pedido){
+  try{
+    const conn = await connection();
+    await conn.query(`UPDATE Pedido SET situacao='${pedido.situacao}' WHERE id=${pedido.id}`);
+    conn.end();
+    return pedido;
+  }
+  catch (e) {
+    return new ErrorResponse(e["message"]);
+  }
+}
+
 async function atualizarCliente(cliente){
   try{
     const conn = await connection();
@@ -202,7 +214,23 @@ async function getImagensPorId(id){
   catch (e) {
     return new ErrorResponse(e["message"]);
   }
+}
 
+async function criarPedido(pedido){
+  try{
+    const conn = await connection();
+    const [rows,fields] = await conn.query(`INSERT INTO Pedido (produto, quantidade, descricao, valor, data, situacao, cliente, numero)
+    VALUES(	'${pedido.produto}', '${pedido.quantidade}', 
+      '${pedido.descricao}', '${pedido.valor}', '${pedido.data}', 
+      '${pedido.situacao}', '${pedido.cliente}', '${pedido.numero}')`);
+      conn.end();
+      pedido.id = rows[0].insertId;
+  
+      return pedido;
+  }
+  catch (e) {
+    return new ErrorResponse(e["message"]);
+  }
 }
 
 async function criarUsuario(usuario){
@@ -273,6 +301,15 @@ async function recuperarSenhaEEnviarEmail(dados){
   }
 }
 
+async function enviarEmail(dados){
+  try {
+    const resp = await email.enviarEmail(dados);
+    return resp;
+  }
+  catch (e) {
+    return new ErrorResponse(e["message"]);
+  }
+}
 
 async function getEntidade(entidade){
   try {
@@ -324,6 +361,6 @@ const ErrorResponse = function(msg) {
 };
 
 module.exports = {connection, getEntidade, removeEntidadeById, 
-  getEntidadeById, criarFaixa, criarUsuario, criarPacote, recuperarSenhaEEnviarEmail,
+  getEntidadeById, criarFaixa, criarUsuario, criarPedido, criarPacote, recuperarSenhaEEnviarEmail,
   criarProduto, vincularImagemProduto, getImagensPorDiretorios, getImagensPorId,
-  criarCategoria, login, atualizarCliente, atualizarSenha}
+  criarCategoria, login, atualizarCliente, atualizarPedido, atualizarSenha, enviarEmail}

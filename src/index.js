@@ -11,8 +11,32 @@ app.use(cors());
 // app.options('*', cors())
 
 const db = require("./db");
+const pdf = require('html-pdf');
 const mercadoPago = require("./mercadoPago");
 
+
+app.get('/pedido/todos', async(req, res) =>{
+  const todos = await db.getEntidade('Pedido');
+  return Response(todos, res);
+});
+
+app.delete('/pedido/excluir', async(req, res) =>{
+  const id = req.query.id;
+  const todos = await db.removeEntidadeById('Pedido', id);
+  return Response(todos, res);
+});
+
+app.post('/pedido/salvar', async(req, res) =>{
+  const user = await db.criarPedido(req.body);
+
+  return Response(user, res);
+});
+
+app.put('/pedido/atualizar', async(req, res) =>{
+  const user = await db.atualizarPedido(req.body);
+
+  return Response(user, res);
+});
 
 app.get('/getImagensPorDiretorio', async(req, res) =>{
   const img = await db.getImagensPorDiretorios(req.query.diretorio);
@@ -168,9 +192,29 @@ app.post('/mercado-pago', async(req, res) => {
 });
 
 
-app.post('/enviar-email', async(req, res) => {
+app.post('/enviarEmail', async(req, res) => {
+  const resp = await db.enviarEmail(req.body);
+  return Response(resp, res);
+});
+
+app.post('/recuperarSenhaEEnviarEmail', async(req, res) => {
   const resp = await db.recuperarSenhaEEnviarEmail(req.body);
   return Response(resp, res);
+});
+
+app.post('/gerarPdf', async(req, res) => {
+  console.log(req.body.html)
+  const html = req.body.html;
+  const options = {
+      type: 'pdf',
+      format: 'A4',
+      orientation: 'portrait'
+  }
+
+  pdf.create(html, options).toBuffer((err, buffer) => {
+      if(err) return res.status(500).json(err)
+      res.end(buffer)               
+  })
 });
 
 function Response(object, res){
