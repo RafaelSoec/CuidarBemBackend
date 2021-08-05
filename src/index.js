@@ -38,12 +38,12 @@ app.put('/pedido/atualizar', async(req, res) =>{
   return Response(user, res);
 });
 
-app.get('/getImagensPorDiretorio', async(req, res) =>{
+app.get('/imagem/getImagensPorDiretorio', async(req, res) =>{
   const img = await db.getImagensPorDiretorio(req.query.diretorio);
   return Response(img, res);
 });
 
-app.get('/getImagensPorId', async(req, res) =>{
+app.get('/imagem/getImagensPorId', async(req, res) =>{
   const img = await db.getImagensPorId(req.query.id);
   return Response(img, res);
 });
