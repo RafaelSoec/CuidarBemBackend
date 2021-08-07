@@ -199,9 +199,9 @@ app.get('/util/whatsapp', async(req, res) => {
   return Response(process.env.WHATSAPP, res);
 });
 
-app.get('/util/tokenMercadoPago', async(req, res) => {
-  return Response(process.env.TOKEN_MERCADO_PAGO, res);
-});
+//app.get('/util/tokenMercadoPago', async(req, res) => {
+  //return Response(process.env.TOKEN_MERCADO_PAGO, res);
+//});
 
 app.post('/enviarEmail', async(req, res) => {
   const resp = await db.enviarEmail(req.body);
