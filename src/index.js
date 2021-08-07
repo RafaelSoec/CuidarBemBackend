@@ -191,6 +191,13 @@ app.post('/mercado-pago', async(req, res) => {
   return Response(resp, res);
 });
 
+app.get('/util/pix', async(req, res) => {
+  return Response(process.env.PIX, res);
+});
+
+app.get('/util/whatsapp', async(req, res) => {
+  return Response(process.env.WHATSAPP, res);
+});
 
 app.post('/enviarEmail', async(req, res) => {
   const resp = await db.enviarEmail(req.body);
