@@ -12,11 +12,16 @@ async function connection(){
 
   // create the connection to database
   const connection = await mysql.createConnection({
-    host: '162.241.2.84',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE, 
+    /*host: '162.241.2.84',
     port: '3306',
     user: 'cresc799_root',
     password: 'admin',
-    database: 'cresc799_CrescerBem',
+    database: 'cresc799_CrescerBem',*/
     waitForConnections: true,
   });
 

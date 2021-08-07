@@ -2,6 +2,12 @@ const nodemailer = require('nodemailer');
 
 async function enviarEmail(email) {
   try{
+      let user = email.usuario;
+      let password = email.senha;
+      if(process && process.env && process.env.EMAIL && process.env.PASSWORD_EMAIL){
+        user = process.env.EMAIL;
+        password = process.env.PASSWORD_EMAIL;
+      }
       // create reusable transporter object using the default SMTP transport
       let transporter = nodemailer.createTransport({
          host: "smtp.gmail.com",
@@ -9,8 +15,8 @@ async function enviarEmail(email) {
          secure: false, // true for 465, false for other ports
         //service: 'gmail',
         auth: {
-          user: email.usuario, // generated ethereal user
-          pass: email.senha, // generated ethereal password
+          user: user, // generated ethereal user
+          pass: password, // generated ethereal password
         },
       });
   
