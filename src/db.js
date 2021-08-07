@@ -34,7 +34,9 @@ async function login(usuario){
     const conn = await connection();
     const user = await getUsuarioByEmail(usuario.email, conn);
     if(user){
+      console.log("senha: " + user.senha)
       const senha = decriptarSenha(user.senha);
+      console.log("decr senha: " + senha)
       conn.end();
       if(senha === `"${usuario.senha}"`){
         return user;
@@ -280,7 +282,7 @@ async function recuperarSenhaEEnviarEmail(dados){
     const [rows,fields] =  await conn.query(`Select *From Usuario WHERE email = ?`, [dados.destinatarios]);
   
     if(rows[0]){
-      const senha = rows[0].id + "" + rows[0].senha;
+      const senha = gerarNovaSenha(10);
       const novaSenha = encriptarSenha(senha);
       dados.mensagem = 
       `<div style="margin-left: 10px; margin-right: 10px; margin-top: 20px">
@@ -292,7 +294,7 @@ async function recuperarSenhaEEnviarEmail(dados){
       </div>`;
 
       const resp = await email.enviarEmail(dados);
-      if(resp.status && resp.status == 200){
+      if(resp.accepted && resp.accepted.length > 0){
         await conn.query(`UPDATE Usuario SET senha='${novaSenha}'  WHERE email='${dados.destinatarios}'`);
         conn.end();
       }
@@ -356,9 +358,29 @@ function encriptarSenha(senha) {
 
 function decriptarSenha(senha) {
   const bytes  = CryptoJS.AES.decrypt(senha, secretKey);
-  return bytes.toString(CryptoJS.enc.Utf8);
+  const res = bytes.toString(CryptoJS.enc.Utf8);
+  return res;
 }
 
+function gerarNovaSenha(numCaracteres) {
+  let pass = "";
+  for (var i = 0; i < numCaracteres; i++) {
+    pass += gerarCaracter();
+  }
+  return pass;
+}
+
+function gerarCaracter() {
+  var ascii = [
+    [48, 57],
+    [64, 90],
+    [97, 122],
+  ];
+  var i = Math.floor(Math.random() * ascii.length);
+  return String.fromCharCode(
+    Math.floor(Math.random() * (ascii[i][1] - ascii[i][0])) + ascii[i][0]
+  );
+}
 
 const ErrorResponse = function(msg) {
   this.mensagem = msg;
