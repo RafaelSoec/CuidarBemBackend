@@ -286,7 +286,7 @@ async function recuperarSenhaEEnviarEmail(dados){
       `<div style="margin-left: 10px; margin-right: 10px; margin-top: 20px">
         <div class="">
           <p>Olá, criamos essa nova senha para você:
-            <b>${novaSenha}</b>
+            <b>${senha}</b>
           </p>
         </div>
       </div>`;
