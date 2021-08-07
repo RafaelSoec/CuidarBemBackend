@@ -4,10 +4,10 @@ async function enviarEmail(email) {
   try{
       // create reusable transporter object using the default SMTP transport
       let transporter = nodemailer.createTransport({
-        // host: "smtp.gmail.com",
-        // port: 587,
-        // secure: false, // true for 465, false for other ports
-        service: 'gmail',
+         host: "smtp.gmail.com",
+         port: 587,
+         secure: false, // true for 465, false for other ports
+        //service: 'gmail',
         auth: {
           user: email.usuario, // generated ethereal user
           pass: email.senha, // generated ethereal password
@@ -27,7 +27,7 @@ async function enviarEmail(email) {
     
   }
   catch (e) {
-    return new ErrorResponse("Usuario não encontrado.");
+    return new ErrorResponse("Falha ao tentar enviar o email.");
   }
 }
 
