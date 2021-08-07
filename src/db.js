@@ -1,5 +1,5 @@
 const CryptoJS = require("crypto-js");
-const secretKey = "321zsds929hahhasdjadaxASDA27162XMASH1233K219233L";
+const secretKey = process.env.SECRET ? process.env.SECRET : "321zsds929hahhasdjadaxASDA27162XMASH1233K219233L";
 
 const email = require("./email");
 
