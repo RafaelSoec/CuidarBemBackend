@@ -34,9 +34,7 @@ async function login(usuario){
     const conn = await connection();
     const user = await getUsuarioByEmail(usuario.email, conn);
     if(user){
-      console.log("senha: " + user.senha)
       const senha = decriptarSenha(user.senha);
-      console.log("decr senha: " + senha)
       conn.end();
       if(senha === `"${usuario.senha}"`){
         return user;
@@ -246,7 +244,7 @@ async function criarUsuario(usuario){
     const row = await getUsuarioByEmail(usuario.email, conn);
     if(!row){
       usuario.senha = encriptarSenha(usuario.senha);
-      await conn.query(`INSERT INTO Usuario (email, senha) VALUES('${usuario.email}', '${usuario.senha}')`);
+      await conn.query(`INSERT INTO Usuario (email, senha, perfil) VALUES('${usuario.email}', '${usuario.senha}', '${usuario.perfil}')`);
       const user = await getUsuarioByEmail(usuario.email, conn);
 
       await conn.query(`INSERT INTO Cliente (id, nome, telefone, cpf, sobrenome, logradouro, estado, municipio, complemento, cep)
