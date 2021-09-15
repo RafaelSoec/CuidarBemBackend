@@ -5,8 +5,8 @@ async function enviarEmail(email) {
       let user = email.usuario;
       let password = email.senha;
       if(process && process.env && process.env.EMAIL && process.env.PASSWORD_EMAIL){
-        user = process.env.EMAIL;
-        password = process.env.PASSWORD_EMAIL;
+        user = process.env.EMAIL ?  process.env.EMAIL :  "rafaelsoec@gmail.com";
+        password = process.env.PASSWORD_EMAIL ?  process.env.PASSWORD_EMAIL :  "Ro791356";
       }
       // create reusable transporter object using the default SMTP transport
       let transporter = nodemailer.createTransport({

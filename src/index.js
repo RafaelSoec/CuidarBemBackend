@@ -176,7 +176,6 @@ app.delete('/usuario/excluir', async(req, res) =>{
 
 app.post('/usuario', async(req, res) =>{
   const user = await db.criarUsuario(req.body);
-
   return Response(user, res);
 });
 

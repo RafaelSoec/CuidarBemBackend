@@ -12,16 +12,16 @@ async function connection(){
 
   // create the connection to database
   const connection = await mysql.createConnection({
-    host: process.env.DB_HOST,
+   /* host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE, 
-    /*host: '162.241.2.84',
+    database: process.env.DB_DATABASE, */
+    host: '162.241.2.84',
     port: '3306',
     user: 'cresc799_root',
     password: 'admin',
-    database: 'cresc799_CrescerBem',*/
+    database: 'cresc799_CrescerBem',
     waitForConnections: true,
   });
 
@@ -123,7 +123,7 @@ async function criarPacote(pacote){
     const resp = await conn.query(`INSERT INTO Locacao (pct_desconto, qtd_dias) VALUES(${pacote.porcentagemDesconto}, ${pacote.quantidadeDias})`);
     const [rows,fields] = await conn.query(`Select *From Locacao WHERE qtd_dias = ?`, [pacote.quantidadeDias]);
     conn.end();
-    pacote.id = resp[0].insertId;
+    pacote.id = (resp[0].insertId ? resp[0].insertId : resp.insertId);
 
     return rows[0];
   }
@@ -138,7 +138,7 @@ async function criarCategoria(categoria){
     const conn = await connection();
     const resp = await conn.query(`INSERT INTO Categoria (nome) VALUES('${categoria.nome}')`);
     conn.end();
-    categoria.id = resp[0].insertId;
+    categoria.id = (resp[0].insertId ? resp[0].insertId : resp.insertId);
 
     return categoria;
   }
@@ -153,7 +153,7 @@ async function criarFaixa(faixa){
     const conn = await connection();
     const resp = await conn.query(`INSERT INTO Faixa (nome) VALUES('${faixa.nome}')`);
     conn.end();
-    faixa.id = resp[0].insertId;
+    faixa.id = (resp[0].insertId ? resp[0].insertId : resp.insertId);
 
     return faixa;
   }
@@ -173,7 +173,7 @@ async function criarProduto(produto){
     ${produto.pacote}, ${produto.categoria}, ${produto.situacao}, ${produto.valor}, ${produto.avaliacao},
     ${produto.faixaEtaria}, '${produto.imagem}') `);
     conn.end();
-    produto.id = resp[0].insertId;
+    produto.id = (resp[0].insertId ? resp[0].insertId : resp.insertId);
 
     return produto;
   }
@@ -229,7 +229,7 @@ async function criarPedido(pedido){
       '${pedido.descricao}', '${pedido.valor}', '${pedido.data}', 
       '${pedido.situacao}', '${pedido.cliente}', '${pedido.numero}')`);
       conn.end();
-      pedido.id = rows[0].insertId;
+      pedido.id = (rows.insertId ? rows.insertId : rows[0].insertId);
   
       return pedido;
   }
@@ -238,17 +238,34 @@ async function criarPedido(pedido){
   }
 }
 
-async function criarUsuario(usuario){
+async function criarCliente(cliente){
   try{
     const conn = await connection();
-    const row = await getUsuarioByEmail(usuario.email, conn);
-    if(!row){
-      usuario.senha = encriptarSenha(usuario.senha);
-      await conn.query(`INSERT INTO Usuario (email, senha, perfil) VALUES('${usuario.email}', '${usuario.senha}', '${usuario.perfil}')`);
-      const user = await getUsuarioByEmail(usuario.email, conn);
+    const [rows,fields] = await conn.query(`INSERT INTO Cliente (id, nome, telefone, cpf, sobrenome, logradouro, estado, municipio, complemento, cep, numero)
+    VALUES('${cliente.id}', '${cliente.nome}', '${cliente.telefone}', '${cliente.cpf}', '${cliente.sobrenome}', '${cliente.logradouro}', '${cliente.estado}', '${cliente.municipio}', '${cliente.complemento}', '${cliente.cep}', '${cliente.numero}')`);
+    conn.end();
 
-      await conn.query(`INSERT INTO Cliente (id, nome, telefone, cpf, sobrenome, logradouro, estado, municipio, complemento, cep)
-      VALUES(${user.id}, '', '', '', '', '', '', '', '', '')`);
+    cliente.id = (rows.insertId ? rows.insertId : rows[0].insertId);
+
+    return cliente;
+  }
+  catch (e) {
+    return new ErrorResponse(e["message"]);
+  }
+}
+
+async function criarUsuario(usuario){
+  try{
+    let user = await getUsuarioByEmail(usuario.email);
+    if(user == null || user == undefined || user == [] || user == ""){
+      usuario.senha = encriptarSenha(usuario.senha);
+      let conn = await connection();
+      let [rows,fields] = await conn.query(`INSERT INTO Usuario (email, senha, perfil) VALUES('${usuario.email}', '${usuario.senha}', '${usuario.perfil}')`);
+      conn.end();
+
+      let clienteId = (rows.insertId ? rows.insertId : rows[0].insertId);
+      conn = await connection();
+      await conn.query(`INSERT INTO Cliente (id, nome, telefone, cpf, sobrenome, logradouro, estado, municipio, complemento, cep, numero) VALUES(${clienteId}, '', '', '', '', '', '', '', '', '', '')`);
       conn.end();
 
       return user;
@@ -261,7 +278,7 @@ async function criarUsuario(usuario){
   }
 }
 
-async function getUsuarioByEmail(email, conn){
+async function getUsuarioByEmail(email, conn = null){
   try {
     if(!conn){
       conn = await connection();
@@ -388,4 +405,4 @@ const ErrorResponse = function(msg) {
 module.exports = {connection, getEntidade, removeEntidadeById, 
   getEntidadeById, criarFaixa, criarUsuario, criarPedido, criarPacote, recuperarSenhaEEnviarEmail,
   criarProduto, vincularImagemProduto, getImagensPorDiretorio, getImagensPorId,
-  criarCategoria, login, atualizarCliente, atualizarPedido, atualizarSenha, enviarEmail}
+  criarCategoria, login, atualizarCliente, criarCliente, atualizarPedido, atualizarSenha, enviarEmail}
