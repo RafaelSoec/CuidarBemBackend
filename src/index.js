@@ -38,6 +38,12 @@ app.put('/pedido/atualizar', async(req, res) =>{
   return Response(user, res);
 });
 
+app.put('/pedido/atualizarSituacao', async(req, res) =>{
+  const user = await db.atualizarSituacaoPedido(req.body);
+
+  return Response(user, res);
+});
+
 app.get('/imagem/getImagensPorDiretorio', async(req, res) =>{
   const img = await db.getImagensPorDiretorio(req.query.diretorio);
   return Response(img, res);

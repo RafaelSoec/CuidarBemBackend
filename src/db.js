@@ -50,6 +50,18 @@ async function login(usuario){
   }
 }
 
+async function atualizarSituacaoPedido(pedido){
+  try{
+    const conn = await connection();
+    await conn.query(`UPDATE Pedido SET situacao='${pedido.situacao}' WHERE id=${pedido.id}`);
+    conn.end();
+    return pedido;
+  }
+  catch (e) {
+    return new ErrorResponse(e["message"]);
+  }
+}
+
 async function atualizarPedido(pedido){
   try{
     const conn = await connection();
@@ -405,4 +417,4 @@ const ErrorResponse = function(msg) {
 module.exports = {connection, getEntidade, removeEntidadeById, 
   getEntidadeById, criarFaixa, criarUsuario, criarPedido, criarPacote, recuperarSenhaEEnviarEmail,
   criarProduto, vincularImagemProduto, getImagensPorDiretorio, getImagensPorId,
-  criarCategoria, login, atualizarCliente, criarCliente, atualizarPedido, atualizarSenha, enviarEmail}
+  criarCategoria, login, atualizarCliente, criarCliente, atualizarPedido, atualizarSituacaoPedido, atualizarSenha, enviarEmail}
