@@ -10,7 +10,7 @@ import com.crescer.v1.model.entities.FaixaEtaria;
 public class FaixaService extends AbstractService<FaixaEtaria>{
 
 	public List<FaixaEtaria> buscarTodos() {
-       return this.buscarTodos();
+       return super.buscarTodos();
 	}
 
 	public FaixaEtaria atualizar(Long id, FaixaEtaria FaixaEtaria){
@@ -22,7 +22,7 @@ public class FaixaService extends AbstractService<FaixaEtaria>{
 	}
 
 	public void excluir(Long id){
-		 this.excluir(id);
+		super.excluir(id);
 	}
 }
 

@@ -2,10 +2,6 @@ package com.crescer.v1.service;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.crescer.v1.exception.ResponseException;
@@ -20,20 +16,9 @@ public class ClienteService extends AbstractService<Cliente>{
 
 	//Por padrão a busca por clientes realiza uma paginação de 10 elementos por vez
 	public List<Cliente> buscarTodos() {
-		int page = 10, size = 10;
-        PageRequest pageRequest = PageRequest.of(page, size,  Sort.Direction.ASC, "nome");
-        Page<Cliente> clientes = new PageImpl<>(this.repository.findAll(), pageRequest, size);
-        
-       return clientes.toList();
+       return super.buscarTodos();
 	}
 	
-	public List<Cliente> buscarTodos(int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size,  Sort.Direction.ASC, "nome");
-        Page<Cliente> clientes = new PageImpl<>(this.repository.findAll(), pageRequest, size);
-        
-       return clientes.toList();
-	}
-
 	public Cliente atualizar(Long id, Cliente cliente){
 		this.validarDadosCliente(cliente);
 		return super.atualizar(id, cliente);
@@ -83,7 +68,7 @@ public class ClienteService extends AbstractService<Cliente>{
 	
 
 	public void excluir(Long id){
-		 this.excluir(id);
+		 super.excluir(id);
 	}
 }
 

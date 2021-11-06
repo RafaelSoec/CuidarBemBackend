@@ -10,7 +10,7 @@ import com.crescer.v1.model.entities.Pedido;
 public class PedidoService extends AbstractService<Pedido>{
 
 	public List<Pedido> buscarTodos() {
-       return this.buscarTodos();
+       return super.buscarTodos();
 	}
 
 	public Pedido atualizar(Long id, Pedido Pedido){
@@ -22,7 +22,7 @@ public class PedidoService extends AbstractService<Pedido>{
 	}
 
 	public void excluir(Long id){
-		 this.excluir(id);
+		super.excluir(id);
 	}
 }
 

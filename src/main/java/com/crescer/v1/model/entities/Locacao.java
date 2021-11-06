@@ -21,10 +21,10 @@ public class Locacao extends AbstractEntity implements Serializable {
 	private Long id;
 	
 
-	@Column(name = "pct_desconto", nullable = false)
+	@Column(name = "pct_desconto", unique = true, nullable = false)
 	private Double pct_desconto;
 
-	@Column(name = "qtd_dias", nullable = false)
+	@Column(name = "qtd_dias", unique = true, nullable = false)
 	private Integer qtd_dias;
 
 	public Long getId() {

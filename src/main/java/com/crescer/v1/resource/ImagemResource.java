@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crescer.v1.model.entities.Imagem;
@@ -25,11 +26,15 @@ public class ImagemResource {
 	private ImagemService service;
 	
 
-	@GetMapping
+	@GetMapping("/todos")
 	public List<Imagem> buscarTodos() {
 		return this.service.buscarTodos();
 	}
 
+	@GetMapping("/getImagensPorDiretorio")
+	public List<Imagem> getImagensPorDiretorio(@RequestParam String diretorio) {
+		return this.service.getImagensPorDiretorio(diretorio);
+	}
 
 	@GetMapping("/{id}")
 	public Imagem buscarPorId(@PathVariable Long id) {

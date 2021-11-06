@@ -25,7 +25,7 @@ public class LocacaoResource {
 	private LocacaoService service;
 	
 
-	@GetMapping
+	@GetMapping("/todos")
 	public List<Locacao> buscarTodos() {
 		return this.service.buscarTodos();
 	}

@@ -25,7 +25,7 @@ public class UsuarioResource {
 	private UsuarioService service;
 	
 
-	@GetMapping
+	@GetMapping("/todos")
 	public List<Usuario> buscarTodos() {
 		return this.service.buscarTodos();
 	}

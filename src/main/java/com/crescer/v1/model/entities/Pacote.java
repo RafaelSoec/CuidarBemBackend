@@ -21,11 +21,11 @@ public class Pacote extends AbstractEntity implements Serializable {
 	private Long id;
 	
 
-	@Column(name = "qtd_dias", nullable = false)
+	@Column(name = "qtd_dias", unique = true, nullable = false)
 	private Integer qtd_dias;
 
-	@Column(name = "pct_desconto", nullable = false)
-	private Integer pct_desconto;
+	@Column(name = "pct_desconto", unique = true, nullable = false)
+	private Double pct_desconto;
 
 	public Long getId() {
 		return id;
@@ -43,11 +43,11 @@ public class Pacote extends AbstractEntity implements Serializable {
 		this.qtd_dias = qtd_dias;
 	}
 
-	public Integer getPct_desconto() {
+	public Double getPct_desconto() {
 		return pct_desconto;
 	}
 
-	public void setPct_desconto(Integer pct_desconto) {
+	public void setPct_desconto(Double pct_desconto) {
 		this.pct_desconto = pct_desconto;
 	}
 	

@@ -54,6 +54,7 @@ public class Pedido extends AbstractEntity implements Serializable {
 		this.id = id;
 	}
 
+
 	public Integer getNumero() {
 		return numero;
 	}

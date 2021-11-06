@@ -10,7 +10,7 @@ import com.crescer.v1.model.entities.Pacote;
 public class PacoteService extends AbstractService<Pacote>{
 
 	public List<Pacote> buscarTodos() {
-       return this.buscarTodos();
+       return super.buscarTodos();
 	}
 
 	public Pacote atualizar(Long id, Pacote Pacote){
@@ -22,7 +22,7 @@ public class PacoteService extends AbstractService<Pacote>{
 	}
 
 	public void excluir(Long id){
-		 this.excluir(id);
+		 super.excluir(id);
 	}
 }
 

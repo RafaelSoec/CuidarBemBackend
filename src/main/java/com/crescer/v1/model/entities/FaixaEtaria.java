@@ -21,7 +21,7 @@ public class FaixaEtaria extends AbstractEntity implements Serializable {
 	private Long id;
 	
 
-	@Column(name = "nome", nullable = false)
+	@Column(name = "nome", unique = true, nullable = false)
 	private String nome;
 
 

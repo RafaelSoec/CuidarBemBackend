@@ -25,7 +25,7 @@ public class PacoteResource {
 	private PacoteService service;
 	
 
-	@GetMapping
+	@GetMapping("/todos")
 	public List<Pacote> buscarTodos() {
 		return this.service.buscarTodos();
 	}

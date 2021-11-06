@@ -25,7 +25,7 @@ public class FaixaResource {
 	private FaixaService service;
 	
 
-	@GetMapping
+	@GetMapping("/todos")
 	public List<FaixaEtaria> buscarTodos() {
 		return this.service.buscarTodos();
 	}

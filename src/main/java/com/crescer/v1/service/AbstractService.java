@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.crescer.v1.exception.ResponseException;
@@ -33,36 +34,52 @@ public abstract class AbstractService<T extends AbstractEntity> {
 	}
 
 	public T salvar(T entity) {
-		if (entity == null) {
-			throw new ResponseException("Objeto não informado.");
-		}
-
-		if (entity.getId() == null) {
-			return this.repository.save(entity);
-		} else {
-			T entityRec = this.buscarPorId(entity.getId());
-			if (entityRec != null) {
-				throw new ResponseException("Id já cadastrado.");
-			} else {
-				return this.repository.save(entity);
+		try {
+			if (entity == null) {
+				throw new ResponseException("Objeto não informado.");
 			}
+
+			if (entity.getId() == null) {
+				return this.repository.save(entity);
+			} else {
+				T entityRec = this.buscarPorId(entity.getId());
+				if (entityRec != null) {
+					throw new ResponseException("Id já cadastrado.");
+				} else {
+					return this.repository.save(entity);
+				}
+			}
+		} catch (DataIntegrityViolationException e) {
+			throw new ResponseException("Algum elemento já foi anteriormente cadastrado.");
+		} catch (Exception e) {
+			throw new ResponseException("Falha ao salvar elemento.");
 		}
 	}
 
 	public T atualizar(Long id, T entity) {
-		T entityRec = this.buscarPorId(id);
+		try {
+			T entityRec = this.buscarPorId(id);
 
-		if (entityRec == null) {
-			throw new ResponseException("Id não encontrado.");
+			if (entityRec == null) {
+				throw new ResponseException("Id não encontrado.");
+			}
+
+			entityRec = entity;
+			entityRec.setId(id);
+			return this.repository.save(entityRec);
+		} catch (DataIntegrityViolationException e) {
+			throw new ResponseException("Algum elemento já foi anteriormente cadastrado.");
+		} catch (Exception e) {
+			throw new ResponseException("Falha ao atualizar elemento.");
 		}
-
-		entityRec = entity;
-		entityRec.setId(id);
-		return this.repository.save(entityRec);
 	}
 
 	public void excluir(Long id) {
-		T entityRec = this.buscarPorId(id);
-		this.repository.delete(entityRec);
+		try {
+			T entityRec = this.buscarPorId(id);
+			this.repository.delete(entityRec);
+		} catch (Exception e) {
+			throw new ResponseException("Falha ao excluir elemento.");
+		}
 	}
 }

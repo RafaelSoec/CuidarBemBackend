@@ -25,7 +25,7 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 
-	@GetMapping
+	@GetMapping("/todos")
 	public List<Categoria> buscarTodos() {
 		return this.service.buscarTodos();
 	}

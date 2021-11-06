@@ -10,7 +10,7 @@ import com.crescer.v1.model.entities.Locacao;
 public class LocacaoService extends AbstractService<Locacao>{
 
 	public List<Locacao> buscarTodos() {
-       return this.buscarTodos();
+       return super.buscarTodos();
 	}
 
 	public Locacao atualizar(Long id, Locacao Locacao){
@@ -22,7 +22,7 @@ public class LocacaoService extends AbstractService<Locacao>{
 	}
 
 	public void excluir(Long id){
-		 this.excluir(id);
+		super.excluir(id);
 	}
 }
 

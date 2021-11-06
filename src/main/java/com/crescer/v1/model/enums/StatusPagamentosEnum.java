@@ -1,15 +1,15 @@
 package com.crescer.v1.model.enums;
 
 public enum StatusPagamentosEnum {
-	APROVADO("APROVADO"), PENDENTE("PENDENTE"), REJEITADO("REJEITADO");
+	DISPONIVEL(1),INDISPONIVEL(2),  OFERTA(3);
 
-	private String tipo;
+	private Integer tipo;
 
-	StatusPagamentosEnum(String tipo) {
+	StatusPagamentosEnum(Integer tipo) {
 		this.tipo = tipo;
 	}
 
-	public String getTipo() {
+	public Integer getTipo() {
 		return tipo;
 	}
 

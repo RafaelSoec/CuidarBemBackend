@@ -24,19 +24,24 @@ public class UsuarioService extends AbstractService<Usuario> {
 	private UsuarioRepository repository;
 
 	public List<Usuario> buscarTodos() {
-		return this.buscarTodos();
+		return super.buscarTodos();
 	}
 
-	public Usuario atualizar(Long id, Usuario Usuario) {
-		return super.atualizar(id, Usuario);
+	public Usuario atualizar(Long id, Usuario usuario) {
+		String senhaCriptografada = crypt.encode(usuario.getSenha());
+		usuario.setSenha(senhaCriptografada);
+		return super.atualizar(id, usuario);
 	}
 
-	public Usuario salvar(Usuario Usuario) {
-		return super.salvar(Usuario);
+	public Usuario salvar(Usuario usuario) {
+		String senhaCriptografada = crypt.encode(usuario.getSenha());
+		usuario.setSenha(senhaCriptografada);
+		
+		return super.salvar(usuario);
 	}
 
 	public void excluir(Long id) {
-		this.excluir(id);
+		super.excluir(id);
 	}
 
 	public Usuario atualizarSenha(Usuario usuario, String novaSenha) {

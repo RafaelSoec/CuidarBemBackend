@@ -25,7 +25,7 @@ public class PedidoResource {
 	private PedidoService service;
 	
 
-	@GetMapping
+	@GetMapping("/todos")
 	public List<Pedido> buscarTodos() {
 		return this.service.buscarTodos();
 	}

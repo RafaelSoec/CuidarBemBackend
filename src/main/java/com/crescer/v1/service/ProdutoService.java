@@ -10,7 +10,7 @@ import com.crescer.v1.model.entities.Produto;
 public class ProdutoService extends AbstractService<Produto>{
 
 	public List<Produto> buscarTodos() {
-       return this.buscarTodos();
+       return super.buscarTodos();
 	}
 
 	public Produto atualizar(Long id, Produto Produto){
@@ -22,7 +22,7 @@ public class ProdutoService extends AbstractService<Produto>{
 	}
 
 	public void excluir(Long id){
-		 this.excluir(id);
+		super.excluir(id);
 	}
 }
 

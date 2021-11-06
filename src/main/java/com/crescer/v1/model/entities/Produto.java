@@ -39,7 +39,7 @@ public class Produto extends AbstractEntity implements Serializable {
 	private Integer quantidade;
 	
 	@Column(name = "situacao", nullable = false)
-	private String situacao;
+	private Integer situacao;
 
 	@Column(name = "valor", nullable = false)
 	private Double valor;
@@ -50,6 +50,17 @@ public class Produto extends AbstractEntity implements Serializable {
 	@Column(name = "categoria", nullable = false)
 	private Integer categoria;
 
+	@Column(name = "imagem", nullable = false)
+	private String imagem;
+
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -106,11 +117,11 @@ public class Produto extends AbstractEntity implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public String getSituacao() {
+	public Integer getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(String situacao) {
+	public void setSituacao(Integer situacao) {
 		this.situacao = situacao;
 	}
 
