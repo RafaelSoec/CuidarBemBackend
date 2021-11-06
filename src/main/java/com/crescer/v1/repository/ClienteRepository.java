@@ -16,4 +16,5 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
 	@Query("SELECT v FROM Cliente v WHERE v.nome LIKE %?1%")
 	List<Cliente> recuperarClientePorNome(String nome);
+
 }

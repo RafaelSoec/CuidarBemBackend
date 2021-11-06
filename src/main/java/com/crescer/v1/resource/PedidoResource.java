@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crescer.v1.model.entities.Pedido;
+import com.crescer.v1.model.enums.SituacaoProdutoEnum;
 import com.crescer.v1.service.PedidoService;
 
 @RestController
@@ -36,6 +37,16 @@ public class PedidoResource {
 		return this.service.buscarPorId(id);
 	}
 
+	@GetMapping("recuperarPedidoPorCliente/{cliente}")
+	public List<Pedido> recuperarPedidoPorCliente(@PathVariable Long cliente){
+		return this.service.recuperarPedidoPorCliente(cliente);
+	}
+
+	@GetMapping("excluirPedidoPorCliente/{cliente}")
+	public void excluirPedidoPorCliente(@PathVariable Long cliente){
+		this.service.excluirPedidoPorCliente(cliente);
+	}
+
 	@PostMapping
 	public Pedido salvar(@RequestBody Pedido pedido) {
 		return this.service.salvar(pedido);
@@ -47,9 +58,16 @@ public class PedidoResource {
 		return this.service.atualizar(id, pedido);
 		
 	}
+	
+	@PutMapping("/atualizarSituacao/{id}")
+	public Pedido atualizarSituacao(@PathVariable Long id, @RequestBody SituacaoProdutoEnum situacao) {
+		return this.service.atualizarSituacao(id, situacao);
+		
+	}
 
 	@DeleteMapping("/{id}")
 	public void excluir(@PathVariable Long id) {
 		 this.service.excluir(id);
 	}
+	
 }
