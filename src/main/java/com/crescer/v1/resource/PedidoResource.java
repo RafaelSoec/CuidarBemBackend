@@ -53,9 +53,9 @@ public class PedidoResource {
 		
 	}
 
-	@PutMapping("/{id}")
-	public Pedido atualizar(@PathVariable Long id, @RequestBody Pedido pedido) {
-		return this.service.atualizar(id, pedido);
+	@PutMapping("/atualizar")
+	public Pedido atualizar( @RequestBody Pedido pedido) {
+		return this.service.atualizar(pedido);
 		
 	}
 	
@@ -65,7 +65,7 @@ public class PedidoResource {
 		
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/excluir/{id}")
 	public void excluir(@PathVariable Long id) {
 		 this.service.excluir(id);
 	}

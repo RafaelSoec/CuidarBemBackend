@@ -36,24 +36,28 @@ public class UsuarioResource {
 		return this.service.buscarPorId(id);
 	}
 
+	@PostMapping("/login")
+	public Usuario login(@RequestBody Usuario usuario) {
+		return this.service.login(usuario);
+	}
+
 	@GetMapping("/recuperarUsuarioPorEmail/{email}")
 	public Usuario recuperarUsuarioPorEmail(@PathVariable String email) {
 		return this.service.recuperarUsuarioPorEmail(email);
 	}
 
-	@PostMapping
+	@PostMapping("/salvar")
 	public Usuario salvar(@RequestBody Usuario usuario) {
 		return this.service.salvar(usuario);
 		
 	}
 
-	@PutMapping("/{id}")
-	public Usuario atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
-		return this.service.atualizar(id, usuario);
-		
+	@PutMapping("/atualizar")
+	public Usuario atualizar(@RequestBody Usuario usuario) {
+		return this.service.atualizar(usuario);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/excluir/{id}")
 	public void excluir(@PathVariable Long id) {
 		 this.service.excluir(id);
 	}

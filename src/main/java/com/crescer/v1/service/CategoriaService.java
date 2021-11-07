@@ -13,12 +13,12 @@ public class CategoriaService extends AbstractService<Categoria>{
        return super.buscarTodos();
 	}
 
-	public Categoria atualizar(Long id, Categoria Categoria){
-		return super.atualizar(id, Categoria);
+	public Categoria atualizar(Categoria categoria){
+		return super.atualizar(categoria);
 	}
 
-	public Categoria salvar(Categoria Categoria){
-		return super.salvar(Categoria);
+	public Categoria salvar(Categoria categoria){
+		return super.salvar(categoria);
 	}
 
 	public void excluir(Long id){

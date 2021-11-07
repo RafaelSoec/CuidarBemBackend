@@ -29,8 +29,8 @@ public class Produto extends AbstractEntity implements Serializable {
 	@Column(name = "estoque", nullable = false)
 	private Integer estoque;
 
-	@Column(name = "locacao", nullable = false)
-	private Integer locacao;
+	@Column(name = "pacote", nullable = false)
+	private Long pacote;
 
 	@Column(name = "descricao", nullable = false)
 	private String descricao;
@@ -52,6 +52,17 @@ public class Produto extends AbstractEntity implements Serializable {
 
 	@Column(name = "imagem", nullable = false)
 	private String imagem;
+
+	@Column(name = "diretorio_imagem", nullable = false)
+	private String diretorioImagens;
+
+	public String getDiretorioImagens() {
+		return diretorioImagens;
+	}
+
+	public void setDiretorioImagens(String diretorioImagens) {
+		this.diretorioImagens = diretorioImagens;
+	}
 
 	public String getImagem() {
 		return imagem;
@@ -93,12 +104,12 @@ public class Produto extends AbstractEntity implements Serializable {
 		this.estoque = estoque;
 	}
 
-	public Integer getLocacao() {
-		return locacao;
+	public Long getPacote() {
+		return pacote;
 	}
 
-	public void setLocacao(Integer locacao) {
-		this.locacao = locacao;
+	public void setPacote(Long pacote) {
+		this.pacote = pacote;
 	}
 
 	public String getDescricao() {

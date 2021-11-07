@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crescer.v1.model.dtos.EmailDTO;
+import com.crescer.v1.model.dtos.PixDTO;
 import com.crescer.v1.utils.AppUtils;
 import com.crescer.v1.utils.EmailUtils;
 
@@ -38,8 +39,8 @@ public class AppResource {
 	}
 
 	@GetMapping("/pix")
-	public String recuperarPix( ) {
-		return appUtils.recuperarWhatsapp();
+	public PixDTO recuperarPix( ) {
+		return appUtils.recuperarPix();
 	}
 
 }

@@ -30,10 +30,10 @@ public class UsuarioService extends AbstractService<Usuario> {
 		return super.buscarTodos();
 	}
 
-	public Usuario atualizar(Long id, Usuario usuario) {
+	public Usuario atualizar(Usuario usuario) {
 		String senhaCriptografada = crypt.encode(usuario.getSenha());
 		usuario.setSenha(senhaCriptografada);
-		return super.atualizar(id, usuario);
+		return super.atualizar(usuario);
 	}
 
 	public Usuario salvar(Usuario usuario) {
@@ -56,7 +56,7 @@ public class UsuarioService extends AbstractService<Usuario> {
 		try {
 			Usuario usuarioRecuperado = this.login(usuario);
 			usuarioRecuperado.setSenha(novaSenha);
-			return this.atualizar(usuario.getId(), usuarioRecuperado);
+			return this.atualizar(usuarioRecuperado);
 		} catch (Exception e) {
 			throw new ResponseException(e);
 		}
@@ -65,9 +65,7 @@ public class UsuarioService extends AbstractService<Usuario> {
 	public Usuario login(Usuario usuario) {
 		Usuario usuarioRecuperado = this.recuperarUsuarioPorEmail(usuario.getEmail());
 		if (usuarioRecuperado != null && usuarioRecuperado.getId() != null) {
-			String senhaCriptografada = crypt.encode(usuario.getSenha());
-
-			if (!usuarioRecuperado.getSenha().equals(senhaCriptografada)) {
+			if (!crypt.matches(usuario.getSenha(), usuarioRecuperado.getSenha())) {
 				throw new ResponseException("Usuário ou senha inválido.");
 			}
 			return usuarioRecuperado;

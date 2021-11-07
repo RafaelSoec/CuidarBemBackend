@@ -42,13 +42,13 @@ public class ProdutoResource {
 		
 	}
 
-	@PutMapping("/{id}")
-	public Produto atualizar(@PathVariable Long id, @RequestBody Produto produto) {
-		return this.service.atualizar(id, produto);
+	@PutMapping("/atualizar")
+	public Produto atualizar(@RequestBody Produto produto) {
+		return this.service.atualizar(produto);
 		
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/excluir/{id}")
 	public void excluir(@PathVariable Long id) {
 		 this.service.excluir(id);
 	}

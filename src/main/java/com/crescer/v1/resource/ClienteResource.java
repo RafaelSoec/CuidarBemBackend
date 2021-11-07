@@ -51,13 +51,13 @@ public class ClienteResource {
 		
 	}
 
-	@PutMapping("/{id}")
-	public Cliente atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
-		return this.service.atualizar(id, cliente);
+	@PutMapping("/atualizar")
+	public Cliente atualizar(@RequestBody Cliente cliente) {
+		return this.service.atualizar(cliente);
 		
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/excluir/{id}")
 	public void excluir(@PathVariable Long id) {
 		 this.service.excluir(id);
 	}

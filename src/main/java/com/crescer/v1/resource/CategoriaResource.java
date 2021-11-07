@@ -42,13 +42,13 @@ public class CategoriaResource {
 		
 	}
 
-	@PutMapping("/{id}")
-	public Categoria atualizar(@PathVariable Long id, @RequestBody Categoria categoria) {
-		return this.service.atualizar(id, categoria);
+	@PutMapping("/atualizar")
+	public Categoria atualizar( @RequestBody Categoria categoria) {
+		return this.service.atualizar(categoria);
 		
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/excluir/{id}")
 	public void excluir(@PathVariable Long id) {
 		 this.service.excluir(id);
 	}

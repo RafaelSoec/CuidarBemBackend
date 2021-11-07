@@ -13,8 +13,8 @@ public class PacoteService extends AbstractService<Pacote>{
        return super.buscarTodos();
 	}
 
-	public Pacote atualizar(Long id, Pacote Pacote){
-		return super.atualizar(id, Pacote);
+	public Pacote atualizar(Pacote Pacote){
+		return super.atualizar(Pacote);
 	}
 
 	public Pacote salvar(Pacote Pacote){

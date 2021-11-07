@@ -13,8 +13,8 @@ public class ProdutoService extends AbstractService<Produto>{
        return super.buscarTodos();
 	}
 
-	public Produto atualizar(Long id, Produto Produto){
-		return super.atualizar(id, Produto);
+	public Produto atualizar(Produto Produto){
+		return super.atualizar(Produto);
 	}
 
 	public Produto salvar(Produto Produto){

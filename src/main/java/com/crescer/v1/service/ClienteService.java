@@ -19,16 +19,16 @@ public class ClienteService extends AbstractService<Cliente>{
        return super.buscarTodos();
 	}
 	
-	public Cliente atualizar(Long id, Cliente cliente){
-		this.validarDadosCliente(cliente);
-		return super.atualizar(id, cliente);
+	public Cliente atualizar(Cliente cliente){
+		return super.atualizar(cliente);
 	}
 
 	public Cliente salvar(Cliente cliente){
-		this.validarDadosCliente(cliente);
-		boolean cpfExiste = this.validarCpfDuplicado(cliente.getCpf());
-		if(cpfExiste) {
-			throw new ResponseException("CPF já cadastrado.");
+		if(cliente.getCpf() != null) {
+			boolean cpfExiste = this.validarCpfDuplicado(cliente.getCpf());
+			if(cpfExiste) {
+				throw new ResponseException("CPF já cadastrado.");
+			}
 		}
 		
 		return super.salvar(cliente);
@@ -43,19 +43,6 @@ public class ClienteService extends AbstractService<Cliente>{
 		}
 		
 		return false;
-	}
-	
-	public void validarDadosCliente(Cliente cliente) {
-		if(cliente == null) {
-			throw new ResponseException("Cliente não informado.");
-		}
-		if(cliente.getNome() == null) {
-			throw new ResponseException("Nome não informado.");
-		}
-		
-		if(cliente.getCpf() == null) {
-			throw new ResponseException("CPF não informado.");
-		}
 	}
 
 	public Cliente recuperarClientePorCpf(String cpf) {

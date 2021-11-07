@@ -13,12 +13,12 @@ public class FaixaService extends AbstractService<FaixaEtaria>{
        return super.buscarTodos();
 	}
 
-	public FaixaEtaria atualizar(Long id, FaixaEtaria FaixaEtaria){
-		return super.atualizar(id, FaixaEtaria);
+	public FaixaEtaria atualizar( FaixaEtaria faixaEtaria){
+		return super.atualizar(faixaEtaria);
 	}
 
-	public FaixaEtaria salvar(FaixaEtaria FaixaEtaria){
-		return super.salvar(FaixaEtaria);
+	public FaixaEtaria salvar(FaixaEtaria faixaEtaria){
+		return super.salvar(faixaEtaria);
 	}
 
 	public void excluir(Long id){

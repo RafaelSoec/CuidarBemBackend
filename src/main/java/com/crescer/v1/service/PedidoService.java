@@ -23,11 +23,11 @@ public class PedidoService extends AbstractService<Pedido>{
 		Pedido pedido = this.buscarPorId(id);
 		pedido.setSituacao(situacao.getTipo());
 		
-		return this.atualizar(id, pedido);
+		return this.atualizar(pedido);
 	}
 	
-	public Pedido atualizar(Long id, Pedido pedido){
-		return super.atualizar(id, pedido);
+	public Pedido atualizar(Pedido pedido){
+		return super.atualizar( pedido);
 	}
 
 	public Pedido salvar(Pedido pedido){

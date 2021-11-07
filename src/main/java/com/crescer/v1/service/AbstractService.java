@@ -56,16 +56,16 @@ public abstract class AbstractService<T extends AbstractEntity> {
 		}
 	}
 
-	public T atualizar(Long id, T entity) {
+	public T atualizar(T entity) {
 		try {
-			T entityRec = this.buscarPorId(id);
+			T entityRec = this.buscarPorId(entity.getId());
 
 			if (entityRec == null) {
 				throw new ResponseException("Id não encontrado.");
 			}
 
 			entityRec = entity;
-			entityRec.setId(id);
+			entityRec.setId(entity.getId());
 			return this.repository.save(entityRec);
 		} catch (DataIntegrityViolationException e) {
 			throw new ResponseException("Algum elemento já foi anteriormente cadastrado.");

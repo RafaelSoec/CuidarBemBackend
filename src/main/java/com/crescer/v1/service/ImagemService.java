@@ -23,8 +23,8 @@ public class ImagemService extends AbstractService<Imagem>{
 	}
 	
 
-	public Imagem atualizar(Long id, Imagem Imagem){
-		return super.atualizar(id, Imagem);
+	public Imagem atualizar(Imagem Imagem){
+		return super.atualizar(Imagem);
 	}
 
 	public Imagem salvar(Imagem Imagem){

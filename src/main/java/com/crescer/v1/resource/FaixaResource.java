@@ -42,13 +42,13 @@ public class FaixaResource {
 		
 	}
 
-	@PutMapping("/{id}")
-	public FaixaEtaria atualizar(@PathVariable Long id, @RequestBody FaixaEtaria faixa) {
-		return this.service.atualizar(id, faixa);
+	@PutMapping("/atualizar")
+	public FaixaEtaria atualizar(@RequestBody FaixaEtaria faixa) {
+		return this.service.atualizar(faixa);
 		
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/excluir/{id}")
 	public void excluir(@PathVariable Long id) {
 		 this.service.excluir(id);
 	}

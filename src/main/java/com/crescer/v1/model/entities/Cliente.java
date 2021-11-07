@@ -22,34 +22,34 @@ public class Cliente extends AbstractEntity implements Serializable {
 	private Long id;
 	
 
-	@Column(name = "nome", nullable = false)
+	@Column(name = "nome", nullable = true)
 	private String nome;
 	
-	@Column(name = "sobrenome", nullable = false)
+	@Column(name = "sobrenome", nullable = true)
 	private String sobrenome;
 
-	@Column(name = "cpf", nullable = false, unique = true)
+	@Column(name = "cpf", nullable = true, unique = true)
 	private String cpf;
 
-	@Column(name = "municipio", nullable = false)
+	@Column(name = "municipio", nullable = true)
 	private String municipio;
 
-	@Column(name = "estado", nullable = false)
+	@Column(name = "estado", nullable = true)
 	private String estado;
 
-	@Column(name = "complemento", nullable = false)
+	@Column(name = "complemento", nullable = true)
 	private String complemento;
 
-	@Column(name = "logradouro", nullable = false)
+	@Column(name = "logradouro", nullable = true)
 	private String logradouro;
 
-	@Column(name = "cep", nullable = false)
+	@Column(name = "cep", nullable = true)
 	private String cep;
 
-	@Column(name = "telefone", nullable = false)
+	@Column(name = "telefone", nullable = true)
 	private String telefone;
 
-	@Column(name = "numero", nullable = false)
+	@Column(name = "numero", nullable = true)
 	private Integer numero;
 
 	public Long getId() {

@@ -47,13 +47,13 @@ public class ImagemResource {
 		
 	}
 
-	@PutMapping("/{id}")
-	public Imagem atualizar(@PathVariable Long id, @RequestBody Imagem imagem) {
-		return this.service.atualizar(id, imagem);
+	@PutMapping("/atualizar")
+	public Imagem atualizar(@RequestBody Imagem imagem) {
+		return this.service.atualizar(imagem);
 		
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/excluir/{id}")
 	public void excluir(@PathVariable Long id) {
 		 this.service.excluir(id);
 	}

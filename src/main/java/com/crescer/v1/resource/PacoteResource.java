@@ -42,13 +42,13 @@ public class PacoteResource {
 		
 	}
 
-	@PutMapping("/{id}")
-	public Pacote atualizar(@PathVariable Long id, @RequestBody Pacote pacote) {
-		return this.service.atualizar(id, pacote);
+	@PutMapping("/atualizar")
+	public Pacote atualizar(@RequestBody Pacote pacote) {
+		return this.service.atualizar(pacote);
 		
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/excluir/{id}")
 	public void excluir(@PathVariable Long id) {
 		 this.service.excluir(id);
 	}
