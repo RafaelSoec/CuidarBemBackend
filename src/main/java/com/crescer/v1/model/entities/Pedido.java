@@ -23,10 +23,10 @@ public class Pedido extends AbstractEntity implements Serializable {
 	
 
 	@Column(name = "numero", nullable = false)
-	private Integer numero;
+	private String numero;
 
 	@Column(name = "produto", nullable = false)
-	private Integer produto;
+	private Long produto;
 
 	@Column(name = "descricao", nullable = false)
 	private String descricao;
@@ -55,19 +55,19 @@ public class Pedido extends AbstractEntity implements Serializable {
 	}
 
 
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
-	public Integer getProduto() {
+	public Long getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Integer produto) {
+	public void setProduto(Long produto) {
 		this.produto = produto;
 	}
 

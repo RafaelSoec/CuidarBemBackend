@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.crescer.v1.model.dtos.EmailDTO;
 import com.crescer.v1.model.dtos.PixDTO;
+import com.crescer.v1.model.dtos.WhatsappDTO;
 import com.crescer.v1.service.EmailService;
 import com.crescer.v1.utils.AppUtils;
 
@@ -29,7 +30,7 @@ public class AppResource {
 	}
 
 	@GetMapping("/whatsapp")
-	public String recuperarWhatsapp() {
+	public WhatsappDTO recuperarWhatsapp() {
 		return appUtils.recuperarWhatsapp();
 	}
 
