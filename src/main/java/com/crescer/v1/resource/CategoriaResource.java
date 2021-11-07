@@ -36,7 +36,7 @@ public class CategoriaResource {
 		return this.service.buscarPorId(id);
 	}
 
-	@PostMapping
+	@PostMapping("/salvar")
 	public Categoria salvar(@RequestBody Categoria categoria) {
 		return this.service.salvar(categoria);
 		

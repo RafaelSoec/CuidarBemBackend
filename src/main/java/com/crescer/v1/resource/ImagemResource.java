@@ -41,7 +41,7 @@ public class ImagemResource {
 		return this.service.buscarPorId(id);
 	}
 
-	@PostMapping
+	@PostMapping("/salvar")
 	public Imagem salvar(@RequestBody Imagem imagem) {
 		return this.service.salvar(imagem);
 		

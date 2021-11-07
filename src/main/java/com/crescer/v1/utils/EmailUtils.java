@@ -11,26 +11,22 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.crescer.v1.exception.ResponseException;
 import com.crescer.v1.model.dtos.EmailDTO;
-import com.crescer.v1.model.entities.Usuario;
-import com.crescer.v1.service.UsuarioService;
+
 
 @Component
 public class EmailUtils {
 
-	@Value("${app.email.user}")
+	@Value("${spring.mail.username}")
 	private String user;
 
-	@Value("${app.email.password}")
+	@Value("${spring.mail.password}")
 	private String password;
 
-	@Autowired
-	private UsuarioService usuarioService;
 
 	public Session config() {
 		Properties props = new Properties();
@@ -75,15 +71,5 @@ public class EmailUtils {
 		}
 	}
 
-	public String recuperarSenhaEEnviarEmail(EmailDTO email) {
-		try {
-			String destinatario = email.getDestinatarios();
-			Usuario usuario = this.usuarioService.recuperarUsuarioPorEmail(destinatario);
-			this.enviar(email);
-			return usuario.getSenha();
-		} catch (Exception e) {
-			throw new ResponseException("Falha ao recuperar senha.");
-		}
-	}
-
+    
 }

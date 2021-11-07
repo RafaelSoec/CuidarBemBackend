@@ -36,7 +36,7 @@ public class FaixaResource {
 		return this.service.buscarPorId(id);
 	}
 
-	@PostMapping
+	@PostMapping("/salvar")
 	public FaixaEtaria salvar(@RequestBody FaixaEtaria faixa) {
 		return this.service.salvar(faixa);
 		

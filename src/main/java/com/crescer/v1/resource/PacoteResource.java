@@ -36,7 +36,7 @@ public class PacoteResource {
 		return this.service.buscarPorId(id);
 	}
 
-	@PostMapping
+	@PostMapping("/salvar")
 	public Pacote salvar(@RequestBody Pacote pacote) {
 		return this.service.salvar(pacote);
 		

@@ -1,5 +1,6 @@
 package com.crescer.v1.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,15 @@ public abstract class AbstractService<T extends AbstractEntity> {
 
 	public List<T> buscarTodos() {
 		return this.repository.findAll();
+	}
+
+	public List<T> salvarTodos(List<T> entities) {
+		List<T> entitiesList = new ArrayList<T>();
+		for (T entity : entities) {
+			entitiesList.add(this.salvar(entity));
+		}
+
+		return entitiesList;
 	}
 
 	public T salvar(T entity) {

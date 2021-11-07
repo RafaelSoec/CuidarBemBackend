@@ -36,7 +36,7 @@ public class ProdutoResource {
 		return this.service.buscarPorId(id);
 	}
 
-	@PostMapping
+	@PostMapping("/salvar")
 	public Produto salvar(@RequestBody Produto produto) {
 		return this.service.salvar(produto);
 		

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.crescer.v1.model.dtos.EmailDTO;
 import com.crescer.v1.model.dtos.PixDTO;
+import com.crescer.v1.service.EmailService;
 import com.crescer.v1.utils.AppUtils;
-import com.crescer.v1.utils.EmailUtils;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -18,19 +18,14 @@ import com.crescer.v1.utils.EmailUtils;
 public class AppResource {
 
 	@Autowired
-	private EmailUtils emailUtils;
+	private EmailService emailService;
 
 	@Autowired
 	private AppUtils appUtils;
 
 	@PostMapping("/enviarEmail")
 	public void enviarEmail(EmailDTO email) {
-		this.emailUtils.enviar(email);
-	}
-
-	@PostMapping("/recuperarSenhaEEnviarEmail")
-	public String recuperarSenhaEEnviarEmail(EmailDTO email) {
-		return this.emailUtils.recuperarSenhaEEnviarEmail(email);
+		this.emailService.enviarEmail(email);
 	}
 
 	@GetMapping("/whatsapp")

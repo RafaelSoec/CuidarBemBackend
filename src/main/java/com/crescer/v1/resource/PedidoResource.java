@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.crescer.v1.model.dtos.PedidoConclusaoDTO;
 import com.crescer.v1.model.entities.Pedido;
 import com.crescer.v1.model.enums.SituacaoProdutoEnum;
 import com.crescer.v1.service.PedidoService;
@@ -47,12 +48,18 @@ public class PedidoResource {
 		this.service.excluirPedidoPorCliente(cliente);
 	}
 
-	@PostMapping
+	@PostMapping("/salvar")
 	public Pedido salvar(@RequestBody Pedido pedido) {
 		return this.service.salvar(pedido);
 		
 	}
 
+	@PostMapping("/salvarPedidoEEnviarPorEmail")
+	public  List<Pedido> salvarPedidoEEnviarPorEmail(@RequestBody PedidoConclusaoDTO pedidoConclusao) {
+		return this.service.salvarPedidoEEnviarPorEmail(pedidoConclusao);
+		
+	}
+	
 	@PutMapping("/atualizar")
 	public Pedido atualizar( @RequestBody Pedido pedido) {
 		return this.service.atualizar(pedido);

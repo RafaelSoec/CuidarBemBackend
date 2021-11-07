@@ -45,7 +45,7 @@ public class ClienteResource {
 		return this.service.buscarPorId(id);
 	}
 
-	@PostMapping
+	@PostMapping("/salvar")
 	public Cliente salvar(@RequestBody Cliente cliente) {
 		return this.service.salvar(cliente);
 		
