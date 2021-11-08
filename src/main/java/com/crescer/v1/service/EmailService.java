@@ -55,7 +55,7 @@ public class EmailService {
 			String mensagem = criarMensagemEmailPorHtml(pathHTML, variaveis);
 			this.enviarHtmlEmail(email, mensagem);
 		} catch (Exception e) {
-			throw new ResponseException(e.getMessage());
+			throw new ResponseException("Falha ao enviar HTML por email. ");
 
 		}
 	}
@@ -72,7 +72,7 @@ public class EmailService {
 			mmh.setFrom(user);
 			javaMailSender.send(mimeMessage);
 		} catch (MessagingException e) {
-			throw new ResponseException(e.getMessage());
+			throw new ResponseException("Falha ao enviar HTML por email. ");
 
 		}
 	}
