@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.crescer.v1.model.dtos.PedidoConclusaoDTO;
 import com.crescer.v1.model.entities.Pedido;
-import com.crescer.v1.model.enums.SituacaoProdutoEnum;
 import com.crescer.v1.service.PedidoService;
 
 @RestController
@@ -66,9 +65,9 @@ public class PedidoResource {
 		
 	}
 	
-	@PutMapping("/atualizarSituacao/{id}")
-	public Pedido atualizarSituacao(@PathVariable Long id, @RequestBody SituacaoProdutoEnum situacao) {
-		return this.service.atualizarSituacao(id, situacao);
+	@PutMapping("/atualizarSituacao")
+	public void atualizarSituacao( @RequestBody List<Pedido> pedidos) {
+		 this.service.atualizarSituacao(pedidos);
 		
 	}
 

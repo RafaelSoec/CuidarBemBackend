@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:remove="all">Atualização de Pedido</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<h1>
+			Pedido número: <span th:text="${pedido.numero}"> </span>
+		</h1>
+		<p>
+			Cliente: <span th:text="${cliente.nome}"></span> 
+			<span th:text="${cliente.sobrenome}"></span>
+		</p>
+		<p>
+			Situação do pagamento: <span
+				th:text="${pedido.situacao}"></span>
+		</p>
+		<h3>Detalhes do pedido:</h3>
+		<table border="1">
+			<tr>
+				<th>Produto</th>
+				<th>Descrição</th>
+				<th>Quantidade</th>
+				<th>Valor</th>
+			</tr>
+			
+			<tr>
+				<td th:text="${produto.nome}">nome</td>
+				<td th:text="${produto.descricao}">descricao</td>
+				<td th:text="${produto.quantidade}">quantidade</td>
+				<td
+					th:text="${#numbers.formatDecimal(produto.valor, 0, 'POINT', 2,
+'COMMA')}">valor</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
