@@ -107,13 +107,14 @@ public class UsuarioService extends AbstractService<Usuario> {
 			String destinatario = email.getDestinatarios();
 			String novaSenha = RandomStringUtils.randomAlphanumeric(8);
 			Usuario usuarioRecuperado = this.recuperarUsuarioPorEmail(destinatario);
-			this.atualizarSenha(usuarioRecuperado, novaSenha);
 
 			Map<String, Object> variaveis = new HashMap<String, Object>();
 			variaveis.put("novaSenha", novaSenha);
 			email.setAssunto(ASSUNTO_EMAIL_TROCA_SENHA);
 
 			this.emailService.enviarHtmlEmail(email, pathHTML, variaveis);
+			this.atualizarSenha(usuarioRecuperado, novaSenha);
+
 		} catch (Exception e) {
 			throw new ResponseException(e.getMessage());
 		}
