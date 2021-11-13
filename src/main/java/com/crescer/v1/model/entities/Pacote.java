@@ -21,10 +21,10 @@ public class Pacote extends AbstractEntity implements Serializable {
 	private Long id;
 	
 
-	@Column(name = "qtd_dias", unique = true, nullable = false)
+	@Column(name = "qtd_dias",  nullable = false)
 	private Integer qtd_dias;
 
-	@Column(name = "pct_desconto", unique = true, nullable = false)
+	@Column(name = "pct_desconto", nullable = false)
 	private Double pct_desconto;
 
 	public Long getId() {
