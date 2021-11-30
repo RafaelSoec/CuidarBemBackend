@@ -48,10 +48,13 @@ public class Produto extends AbstractEntity implements Serializable {
 	private Double valor;
 
 	@Column(name = "faixa_etaria", nullable = false)
-	private Integer faixa_etaria;
+	private Long faixa_etaria;
 
 	@Column(name = "categoria", nullable = false)
-	private Integer categoria;
+	private Long categoria;
+	
+	@Column(name = "pacote", nullable = false)
+	private Long pacote;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "produto", referencedColumnName = "id")
@@ -61,6 +64,14 @@ public class Produto extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "produto", referencedColumnName = "id")
     private List<Pacote> pacotes = new ArrayList<Pacote>();
 	
+	public Long getPacote() {
+		return pacote;
+	}
+
+	public void setPacote(Long pacote) {
+		this.pacote = pacote;
+	}
+
 	public List<Imagem> getImagens() {
 		return imagens;
 	}
@@ -141,19 +152,19 @@ public class Produto extends AbstractEntity implements Serializable {
 		this.valor = valor;
 	}
 
-	public Integer getFaixa_etaria() {
+	public Long getFaixa_etaria() {
 		return faixa_etaria;
 	}
 
-	public void setFaixa_etaria(Integer faixa_etaria) {
+	public void setFaixa_etaria(Long faixa_etaria) {
 		this.faixa_etaria = faixa_etaria;
 	}
 
-	public Integer getCategoria() {
+	public Long getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Integer categoria) {
+	public void setCategoria(Long categoria) {
 		this.categoria = categoria;
 	}
 }
