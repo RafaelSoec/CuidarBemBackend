@@ -26,18 +26,7 @@ public class Pacote extends AbstractEntity implements Serializable {
 
 	@Column(name = "pct_desconto", nullable = false)
 	private Double pct_desconto;
-
-	@Column(name = "ativo", nullable = false)
-	private Boolean ativo;
 	
-	
-	public Boolean getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
-	}
 
 	public Long getId() {
 		return id;
