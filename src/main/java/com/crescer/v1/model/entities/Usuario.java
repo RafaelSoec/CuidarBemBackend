@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario extends AbstractEntity implements Serializable {
@@ -23,6 +25,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@Column(name = "email", nullable = false)
 	private String email;
 
+	@JsonIgnore
 	@Column(name = "senha", nullable = false)
 	private String senha;
 

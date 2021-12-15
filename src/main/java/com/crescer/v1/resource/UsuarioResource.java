@@ -52,8 +52,8 @@ public class UsuarioResource {
 	}
 
 	@PostMapping("/atualizarSenha")
-	public Usuario atualizarSenha(@RequestBody UsuarioTrocaSenhaDTO usuario) {
-		return this.service.atualizarSenha(usuario);
+	public void atualizarSenha(@RequestBody UsuarioTrocaSenhaDTO usuario) {
+		 this.service.atualizarSenha(usuario);
 	}
 
 	@PostMapping("/atualizar")
