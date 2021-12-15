@@ -67,7 +67,8 @@ public class UsuarioService extends AbstractService<Usuario> {
 	
 	public Usuario atualizarSenha(Usuario usuario, String novaSenha) {
 		try {
-			Usuario usuarioRecuperado = this.login(usuario);
+			this.login(usuario);
+			Usuario usuarioRecuperado = this.recuperarUsuarioPorEmail(usuario.getEmail());
 			String senhaCriptografada = crypt.encode(novaSenha);
 			usuarioRecuperado.setSenha(senhaCriptografada);
 			return this.atualizar(usuarioRecuperado);
@@ -76,13 +77,12 @@ public class UsuarioService extends AbstractService<Usuario> {
 		}
 	}
 
-	public Usuario login(Usuario usuario) {
+	public void login(Usuario usuario) {
 		Usuario usuarioRecuperado = this.recuperarUsuarioPorEmail(usuario.getEmail());
 		if (usuarioRecuperado != null && usuarioRecuperado.getId() != null) {
 			if (!usuario.getSenha().equals(usuarioRecuperado.getSenha()) && !crypt.matches(usuario.getSenha(), usuarioRecuperado.getSenha()) ) {
 				throw new ResponseException("Usuário ou senha inválido.");
 			}
-			return usuarioRecuperado;
 		} else {
 			throw new ResponseException("Usuário não cadastrado.");
 		}

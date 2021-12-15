@@ -36,8 +36,8 @@ public class UsuarioResource {
 	}
 
 	@PostMapping("/login")
-	public Usuario login(@RequestBody Usuario usuario) {
-		return this.service.login(usuario);
+	public void login(@RequestBody Usuario usuario) {
+		 this.service.login(usuario);
 	}
 
 	@GetMapping("/recuperarUsuarioPorEmail/{email}")
