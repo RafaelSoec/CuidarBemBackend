@@ -2,16 +2,21 @@ package com.crescer.v1.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crescer.v1.exception.ResponseException;
 import com.crescer.v1.model.entities.Cliente;
+import com.crescer.v1.model.entities.Usuario;
 import com.crescer.v1.repository.ClienteRepository;
 
 @Service
 public class ClienteService extends AbstractService<Cliente>{
 	
 	private ClienteRepository repository;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 
 	//Por padrão a busca por clientes realiza uma paginação de 10 elementos por vez
@@ -48,6 +53,12 @@ public class ClienteService extends AbstractService<Cliente>{
 	public Cliente recuperarClientePorCpf(String cpf) {
 		return this.repository.recuperarClientePorCpf(cpf);
 	}
+
+	public Cliente buscarClientePorEmail(String email) {
+		Usuario usuario = this.usuarioService.recuperarUsuarioPorEmail(email);
+		return this.buscarPorId(usuario.getId());
+	}
+	
 
 	public List<Cliente> recuperarClientePorNome(String nome) {
 		return this.repository.recuperarClientePorNome(nome);

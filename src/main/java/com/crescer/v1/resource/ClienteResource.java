@@ -39,6 +39,11 @@ public class ClienteResource {
 	public Cliente buscarClientesPorCpf(@PathVariable String cpf) {
 		return this.service.recuperarClientePorCpf(cpf);
 	}
+	
+	@GetMapping("/buscarPorEmail/{email}")
+	public Cliente buscarClientePorEmail(@PathVariable String email) {
+		return this.service.buscarClientePorEmail(email);
+	}
 
 	@GetMapping("/{id}")
 	public Cliente buscarPorId(@PathVariable Long id) {
