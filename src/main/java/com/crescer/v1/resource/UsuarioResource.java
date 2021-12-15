@@ -46,8 +46,8 @@ public class UsuarioResource {
 	}
 
 	@PostMapping("/salvar")
-	public Usuario salvar(@RequestBody Usuario usuario) {
-		return this.service.salvar(usuario);
+	public void salvar(@RequestBody Usuario usuario) {
+		 this.service.salvar(usuario);
 
 	}
 
